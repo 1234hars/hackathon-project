@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://www.indeed.com/ads/apiresults.js"></script>
+    <script src="https://www.indeed.com/ads/apiresults.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs Hai! - Your Career Growth Platform</title>
+    <link rel="stylesheet" href="jobes hai.css">
+    <link rel="stylesheet" href="c1.css">
+    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="indeed.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+           background-color: rgb(222, 234, 159);
+        }
+
+        header {
+             background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        #search {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        #job-search {
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 18px;
+        }
+
+        #search-btn {
+            width: 100px;
+            height: 40px;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: #333;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #search-btn:hover {
+            background-color: #555;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li {
+            margin-right: 20px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ccc;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #job-list,
+        #course-list,
+        #learning-content {
+            padding: 20px;
+           
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            text-decoration-color: #333;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">Jobs Hai!</div>
+            <div id="indeed-jobs"> <h1>J</h1></div>
+            <section id="search">
+                <input type="search" id="job-search" placeholder="Search jobs...">
+                <button id="search-btn">Search</button>
+            </section>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#jobs">Jobs</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#learning-portal">Learning Portal</a></li>
+                <li><a href="http://127.0.0.1:5500/about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <h1>Welcome to Jobs Hai!</h1>
+            <p>Grow your career with our courses and job opportunities.</p>
+        </section>
+
+        <section id="jobs">
+            <h2>Job Listings</h2>
+            <div id="job-list">
+                <!-- Job listings will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="courses">
+            <h2>Available Courses</h2>
+            <div id="course-list">
+                <!-- Course listings will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="learning-portal" style="margin-bottom: 5%;">
+            <h2></h2>
+
+            <div id="learning-content">
+
+
+                <!-- Learning content will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Jobs Hai! All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="courses.js"></script>
+    <script src="indeedApi.js"></script>
+    <script src="jobes hai.js"></script>
+    <script src="lms.js"></script>
+    <script src="profile.js"></script>
+    <script src="server.js"></script>
+    <script src="user.js"></script>
+    <script src="indeed1.js"></script>
+    <script src="redirectapply.js"></script>
+    <script src="api.js"></script>
+    <script src="searchbar.js"></script>
+    <script src="indeed2.js"></script>
+
+    <script>
+        // Function to create a chat session
+        async function createChatSession(apiKey, externalUserId) {
+            const response = await fetch('https://api.on-demand.io/chat/v1/sessions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': apiKey
+                },
+                body: JSON.stringify({
+                    pluginIds: [],
+                    externalUserId: externalUserId
+                })
+            });
+
+            const data = await response.json();
+            return data.data.id; // Extract session ID from the response
+        }
+
+        // Function to submit a query using the session ID
+        async function submitQuery(apiKey, sessionId, query) {
+            const response = await fetch(`https://api.on-demand.io/chat/v1/sessions/${sessionId}/query`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': apiKey
+                },
+                body: JSON.stringify({
+                    endpointId: 'predefined-openai-gpt4o',
+                    query: query,
+                    pluginIds: ['plugin-1712327325', 'plugin-1713962163', 'plugin-1717448083'],
+                    responseMode: 'sync'
+                })
+            });
+
+            const data = await response.json();
+            return data;
+        }
+
+        // Example usage
+        (async () => {
+            const apiKey = '<replace_api_key>';
+            const externalUserId = '<replace_external_user_id>';
+            const query = 'Put your query here';
+
+            try {
+                const sessionId = await createChatSession(apiKey, externalUserId);
+                const result = await submitQuery(apiKey, sessionId, query);
+                console.log(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })();
+    </script>
+    </body></html>

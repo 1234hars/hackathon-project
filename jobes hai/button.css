@@ -1,0 +1,14 @@
+.apply-button {
+    background-color: #13829e;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.apply-button:hover {
+    background-color: #3e8e41;
+}
